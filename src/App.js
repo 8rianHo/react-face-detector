@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Navigation from './components/navigation/Navigation';
-import Logo from './components/navigation/Logo';
 import Rank from './components/rank/Rank';
 import SignIn from './components/signin/SignIn';
 import Register from './components/register/Register';
@@ -141,7 +140,7 @@ class App extends Component {
   onPageChange = (page) => {
     if (page === 'home'){
       this.setState({isSignedIn: true})
-    } else if (page === 'signout'){
+    } else if (page === 'signin'){
       this.setState(initialState)
     }
     this.setState({currentPage: page});
@@ -159,7 +158,6 @@ class App extends Component {
         </div>
         : this.state.currentPage === 'home' ?
         <div>
-          <Logo />
           <Rank name={user.name} entries={user.entries}/>
           <ImageURL onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
           <FaceDetector imageURL={imageURL} box={facebox}/>
