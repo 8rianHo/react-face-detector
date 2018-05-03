@@ -100,36 +100,42 @@ class App extends Component {
   }
 
   onButtonSubmit = () => {
+    
+    const dot = this.state.input.indexOf(".", this.state.input.length-5);
+    const target = this.state.input.substring(dot);
+    const extension = ['.jpg','.jpeg','.png'];
     this.setState({imageURL:this.state.input})
-    fetch("https://enigmatic-beyond-88425.herokuapp.com/imageurl", {
-      method: "post",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({
-        input: this.state.input
-      })
-    })
-    .then(response => response.json())
-    .then(response => {
-      if (response) {
-        fetch("https://enigmatic-beyond-88425.herokuapp.com/image", {
-          method: "put",
-          headers: {"Content-Type":"application/json"},
-          body: JSON.stringify({
-            id: this.state.user.id
-          })
+
+    if (extension.includes(target)) {
+      fetch("https://enigmatic-beyond-88425.herokuapp.com/imageurl", {
+        method: "post",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+          input: this.state.input
         })
-        .then(response => response.json())
-        .then(count => {
-          // setting state to whole user is like creating a new one every time.
-          // this.setState({ user: {
-          //   entries: count
-          // } })
-          this.setState(Object.assign(this.state.user, { entries: count }))
-        }).catch(err => console.log(err))
-      }
-      this.displayFaceBox(this.calculateFaceLocation(response))
-    })
-    .catch(err => console.log(err))
+      })
+      .then(response => response.json())
+      .then(response => {
+        if (response) {
+          fetch("https://enigmatic-beyond-88425.herokuapp.com/image", {
+            method: "put",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({
+              id: this.state.user.id
+            })
+          })
+          .then(response => response.json())
+          .then(count => {
+            this.setState(Object.assign(this.state.user, { entries: count }))
+          }).catch(err => console.log(err))
+        }
+        this.displayFaceBox(this.calculateFaceLocation(response))
+      })
+      .catch(err => console.log(err))
+    } else {
+      console.log('nah');
+    }
+
   }
 
   onPageChange = (page) => {
