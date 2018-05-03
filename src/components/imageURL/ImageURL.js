@@ -5,7 +5,7 @@ const ImageURL = ({ onInputChange, onButtonSubmit }) => {
   return(
     <div>
       <p className='f3'>
-        {'This application will detect faces in your pictures. Give it a url!'}
+        {'This application will detect faces in your pictures. Give it a photo url! (.jpg, .jpeg, .png)'}
       </p>
       <div className='center'>
         <div className='form center pa4 br3 shadow-5'>
